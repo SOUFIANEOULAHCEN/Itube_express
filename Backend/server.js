@@ -1,9 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./model/User");
+const cors = require("cors");
 const app = express();
 const port = 3000;
+// 
 app.use(express.json());
+app.use(cors());
+// 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Remplacez par l'URL de votre frontend
+    methods: ["GET", "POST", "PUT", "DELETE"], // Méthodes autorisées
+    allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
+  })
+);
+// 
 mongoose
   .connect("mongodb://localhost:27017/auth")
   .then(() => {
